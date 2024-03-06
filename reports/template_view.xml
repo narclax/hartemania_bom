@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Custom header / footer format views for reports -->
+        <template id="hartemania_bom_report_structure">
+           
+                
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-call="web.basic_layout">
+                <t t-call-assets="mrp.assets_common" t-js="False"/>
+                
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="not company">
+                        <!-- Multicompany -->
+                        <t t-if="company_id">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <t t-elif="o and 'company_id' in o">
+                            <t t-set="company" t-value="o.company_id.sudo()"/>
+                        </t>
+                        <t t-else="else">
+                            <t t-set="company" t-value="res_company"/>
+                        </t>
+                    </t>
+                
+                
+                <div class="header" style="">
+                    <div class="row" style="border-bottom:0px solid #0081dd;padding-top:15px;padding-bottom:15px;">
+                        <style>
+                            * {
+                                font-family: montserrat!important;
+                                color:#535456;
+                            }
+                        </style>
+                        <div class="col-6">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo" style="height:75px;"/>
+                        </div>
+                        
+                        <div class="col-6 text-right">
+                          <span style="color:#d51c2a;text-transform:uppercase;" t-field="company.name"/><br/>
+                            <span >RNC: <t t-esc="company.vat"/></span><br/>
+                            <span t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/><br/>
+
+                        </div>
+                        
+                    </div>
+                    
+                    
+                </div>
+                
+                
+                <div class="footer" style="border-top:2px solid #000;">
+                  <div class="row" >
+                      <style>
+                          * {
+                              font-family: montserrat!important;
+                              color:#535456;
+                          }
+                      </style>
+                      <div class="col-12" style="padding-top:15px;">
+                          <div t-if="report_type == 'pdf'" class="text-muted text-center">
+                              <t t-if="company.id == 1">
+                                  <span>info@hartemania.com - http://hartemania.com - 809-598-2143</span><br/>
+                              </t>
+                              <t t-else="">
+                                  <span>info@hartemontajes.com - http://hartemontajes.com - 809-598-2143</span><br/>
+                              </t>
+                              Página:
+                              <span class="page"/>
+                              de
+                              <span class="topage"/>
+                          </div>
+                          
+                      </div>                    
+                  </div>
+                </div>
+                
+                
+                
+                
+                
+                
+                <t t-foreach="docs" t-as="data">
+                    <div class="page">
+                        <t t-call="mrp.report_mrp_bom"/>
+                    </div>
+                    <p style="page-break-before:always;"> </p>
+                </t>
+            </t>
+                    
+
+        </template>
+    </data>
+</odoo>
