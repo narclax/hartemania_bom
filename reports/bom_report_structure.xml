@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <template id="bom_structure_inherit" inherit_id="web.frontend_layout">
+            <xpath expr="//footer" position="replace">
+                
+
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

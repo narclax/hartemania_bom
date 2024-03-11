@@ -11,13 +11,10 @@ Lista de Precios personalizados para Hartemania.
 """,
     'depends': ['mrp'],
     'data': [
-        #'security/ir.model.access.csv',        
-        #'reports/invoice_report.xml',
-        #reports/quotation_report.xml',
-        #'reports/template_view.xml',
-        #'reports/view_report.xml',
-        #'views/account_move_views.xml',
-        #'views/sale_views.xml',
+        
+        'views/bom_report.xml',
+        'views/pdf_line.xml',
+        'views/bom_report_structure.xml',
     ],
     'demo': [
         #'data/website_demo.xml'

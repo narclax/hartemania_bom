@@ -1,5 +1,13 @@
 <?xml version="1.0"?>
-<t t-name="mrp.report_mrp_bom">
+<odoo>
+    <data>
+        <!-- Find the target view to be replaced using its unique ID -->
+        <record id="mrp.report_mrp_bom" model="ir.ui.view">
+            <field name="name">mrp.report_mrp_bom</field>
+            <field name="model">mrp.report_mrp_bom</field>
+            <field name="arch" type="xml">
+
+                <t t-name="mrp.report_mrp_bom">
         <div class="container o_mrp_bom_report_page">
                 <t t-if="data.get('components') or data.get('lines') or data.get('operations')">
                     <div class="row">
@@ -210,4 +218,7 @@
             </div> 
     </t>
 
-    
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Find the target view to be replaced using its unique ID -->
+        <record id="mrp.report_mrp_bom_pdf_line" model="ir.ui.view">
+            <field name="name">mrp.report_mrp_bom_pdf_line</field>
+            <field name="model">mrp.report_mrp_bom_pdf_line</field>
+            <field name="arch" type="xml">
+
+                <t t-name="mrp.report_mrp_bom_pdf_line">
+      <t t-set="currency" t-value="data['currency']"/>
+      <tr>
+            <td colspan="6" style="background:#e55e59;color:#fff;" class="text-center">
+              Desglose de materiales
+            </td>
+            
+          </tr>
+      <t t-foreach="data['lines']" t-as="l">
+          <t t-set="space_td" t-value="'margin-left: '+ str(l['level'] * 20) + 'px;'"/>
+          
+          
+          
+          
+          
+          
+          <tr t-if="data['report_structure'] != 'bom_structure' or l['type'] not in ['operation', 'byproduct']">
+              <td>
+                  <div t-att-style="space_td">
+                    <div><t t-esc="l['name']"/></div>
+                  </div>
+              </td>
+              <td name="td_mrp_code">
+                  <div t-if="l.get('code')" t-esc="l['code']"/>
+              </td>
+              <td class="text-right">
+                  <span>
+                      <t t-if="l['type'] == 'operation'" t-esc="l['quantity']" t-options="{&quot;widget&quot;: &quot;float_time&quot;}"/>
+                      <t t-if="l['type'] in ['bom', 'byproduct']" t-esc="l['quantity']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;decimal_precision&quot;: &quot;Product Unit of Measure&quot;}"/>
+                  </span>
+              </td>
+              
+              
+              
+              
+              
+              
+              <td groups="uom.group_uom"><span><t t-esc="l['uom']"/></span></td>
+              
+              
+              <td class="text-right">
+                <span t-esc="l['bom_cost'] / l['quantity']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"/>
+              </td>
+              
+              
+              <td t-if="data['report_structure'] != 'bom_structure'" class="o_mrp_prod_cost text-right" >
+                  <span t-if="'prod_cost' in l" t-esc="l['prod_cost']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"/>
+              </td>
+              
+              <!--
+              <td t-if="data['report_structure'] != 'bom_structure'" class="o_mrp_bom_cost text-right">
+                  <span t-esc="l['bom_cost']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"/>
+              </td>
+              -->
+              
+              
+              
+              
+              
+              
+          </tr>
+      </t>
+    </t>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>
+    
